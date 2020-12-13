@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
             read(4, sizeArray)
             val size = Packet.byteArrayToIntLittle(sizeArray)
             val data = ByteArray(size)
-            read(size, data)
+            read(size, 4, data)
             tv_msg.text = String(data, charset("utf-8"))
         }
     }

@@ -4,7 +4,7 @@
 
 #ifndef KTC_LOG_H
 #define KTC_LOG_H
-#define ENABLE_RYUJIN_LOG
+//#define ENABLE_RYUJIN_LOG
 #ifdef ENABLE_RYUJIN_LOG
 #include <android/log.h>
 #define RYUJIN_LOG_TAG  "RYUJIN"

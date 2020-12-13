@@ -1,9 +1,8 @@
 package com.baidu.ryujin.ktc
 
-import android.os.ParcelFileDescriptor
-import java.io.FileDescriptor
-
 /**
+ * A custom Shared memory
+ *
  * @author ryujin
  * @time 2020/12/13 19:58
  *
@@ -30,11 +29,25 @@ class MyShareMemory(fd: Int) {
     }
 
     fun write(data: ByteArray) {
-        nWrite(mFd, data.size, data)
+        write(0, data)
+    }
+
+    /**
+     * @param offset shared memory offset
+     */
+    fun write(offset: Int, data: ByteArray) {
+        nWrite(mFd, data.size, offset, data)
     }
 
     fun read(size: Int, data: ByteArray) {
-        nRead(mFd, size, data)
+        read(size, 0, data);
+    }
+
+    /**
+     * @param offset shared memory offset
+     */
+    fun read(size: Int, offset: Int, data: ByteArray) {
+        nRead(mFd, size, offset, data);
     }
 
     companion object {
@@ -58,10 +71,10 @@ class MyShareMemory(fd: Int) {
         private external fun nClose(fd: Int)
 
         @JvmStatic
-        private external fun nWrite(fd: Int, size: Int, data: ByteArray): Int
+        private external fun nWrite(fd: Int, size: Int, offset: Int, data: ByteArray): Int
 
         @JvmStatic
-        private external fun nRead(fd: Int, size: Int, data: ByteArray): Int
+        private external fun nRead(fd: Int, size: Int, offset: Int, data: ByteArray): Int
 
     }
 }
