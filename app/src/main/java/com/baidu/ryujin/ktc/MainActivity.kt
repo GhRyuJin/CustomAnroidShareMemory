@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         unbindService(mConnection)
+        myShareMemory?.close()
         super.onDestroy()
     }
 
@@ -61,9 +62,13 @@ class MainActivity : AppCompatActivity() {
             read(4, sizeArray)
             val size = Packet.byteArrayToIntLittle(sizeArray)
             val data = ByteArray(size)
-            read(size,data)
+            read(size, data)
             tv_msg.text = String(data, charset("utf-8"))
         }
+    }
+
+    fun close(view: View) {
+        myShareMemory?.close()
     }
 
 }

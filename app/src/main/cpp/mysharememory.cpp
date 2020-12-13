@@ -1,6 +1,7 @@
 #include <jni.h>
 #include <string>
 #include "android_shm.h"
+#include "Log.h"
 
 extern "C"
 JNIEXPORT jint JNICALL
@@ -9,7 +10,8 @@ Java_com_baidu_ryujin_ktc_MyShareMemory_nCreate(JNIEnv *env, jclass clazz, jstri
     char *buf;
     int64_t ufd = 0;
     const char *_name = env->GetStringUTFChars(name, 0);
-    create_shared_memory(_name, size, buf, ufd);
+    int ret = create_shared_memory(_name, size, buf, ufd);
+    RYUJINLOG("nCreate ret = %d", ret);
     return ufd;
 }extern "C"
 JNIEXPORT jint JNICALL
@@ -28,6 +30,7 @@ Java_com_baidu_ryujin_ktc_MyShareMemory_nWrite(JNIEnv *env, jclass clazz, jint f
                                                jint size, jbyteArray data_) {
     char *addr;
     int space = get_shared_memory_size(fd);
+    RYUJINLOG("nWrite space = %d, size = %d", space, size);
     if (size - space) {
         return -1;
     }
@@ -43,6 +46,7 @@ Java_com_baidu_ryujin_ktc_MyShareMemory_nRead(JNIEnv *env, jclass clazz, jint fd
                                               jbyteArray data_) {
 
     int space = get_shared_memory_size(fd);
+    RYUJINLOG("nRead space = %d, size = %d", space, size);
     if (size - space) {
         return -1;
     }

@@ -32,7 +32,11 @@
         android:layout_height="wrap_content"
         android:onClick="read"
         android:text="read" />
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="close"
+        android:text="close" />
     <TextView
         android:id="@+id/tv_msg"
         android:layout_width="wrap_content"
