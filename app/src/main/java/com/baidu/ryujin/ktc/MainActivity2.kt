@@ -28,6 +28,7 @@ class MainActivity2 : AppCompatActivity() {
         val data = Parcel.obtain()
         val reply = Parcel.obtain()
         mBinder?.apply {
+
             //从服务端获取MainActivity传递的文件描述符
             transact(TestShareMemoryService.TRANS_CODE_GET_FD, data, reply, 0)
             val readFileDescriptor = reply.readFileDescriptor()
