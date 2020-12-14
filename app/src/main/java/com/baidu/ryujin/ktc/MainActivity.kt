@@ -7,6 +7,7 @@ import android.content.ServiceConnection
 import android.os.Binder
 import android.os.Bundle
 import android.os.IBinder
+import android.os.Parcel
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -29,9 +30,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val it = Intent(this@MainActivity, TestShareMemoryService::class.java)
-        startService(it)
-        bindService(it, mConnection, Context.BIND_AUTO_CREATE)
+        val intent = Intent(this, TestShareMemoryService::class.java)
+        startService(intent)
+        bindService(intent, mConnection, Context.BIND_AUTO_CREATE)
     }
 
 
@@ -41,6 +42,15 @@ class MainActivity : AppCompatActivity() {
 
     fun createShareMemory(view: View) {
         myShareMemory = MyShareMemory.create("myShareMemory1", 1024)
+        myShareMemory?.apply {
+            mBinder?.apply {
+                val data = Parcel.obtain()
+                val reply = Parcel.obtain()
+                data.writeFileDescriptor(getFileDescriptor())
+                transact(TestShareMemoryService.TRANS_CODE_SET_FD, data, reply, 0)
+            }
+        }
+
     }
 
     fun write(view: View) {

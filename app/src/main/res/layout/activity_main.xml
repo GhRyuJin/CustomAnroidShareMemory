@@ -21,22 +21,25 @@
         android:onClick="write"
         android:text="write(1)" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="gotoMain2"
-        android:text="MainActivity2" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="read"
         android:text="read" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="close"
         android:text="close" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="gotoMain2"
+        android:text="MainActivity2" />
+
     <TextView
         android:id="@+id/tv_msg"
         android:layout_width="wrap_content"

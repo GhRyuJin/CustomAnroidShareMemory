@@ -1,5 +1,8 @@
 package com.baidu.ryujin.ktc
 
+import android.os.ParcelFileDescriptor
+import java.io.FileDescriptor
+
 /**
  * A custom Shared memory
  *
@@ -19,6 +22,9 @@ class MyShareMemory(fd: Int) {
         require(mSize > 0) { "FileDescriptor is not a valid ashmem fd" }
     }
 
+    fun getFileDescriptor(): FileDescriptor {
+        return ParcelFileDescriptor.fromFd(mFd).fileDescriptor
+    }
 
     fun getSize(): Int {
         return mSize

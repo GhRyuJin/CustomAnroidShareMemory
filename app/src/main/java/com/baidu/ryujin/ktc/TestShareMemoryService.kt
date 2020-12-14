@@ -31,14 +31,14 @@ class TestShareMemoryService : Service() {
 
         override fun onTransact(code: Int, data: Parcel, reply: Parcel?, flags: Int): Boolean {
             when (code) {
-                TRANS_CODE_GET_FD -> {
+                TRANS_CODE_SET_FD -> {
                     fd = data.readFileDescriptor()
                 }
-                TRANS_CODE_SET_FD -> {
+                TRANS_CODE_GET_FD -> {
                     reply?.writeFileDescriptor(fd.fileDescriptor)
                 }
             }
-            return super.onTransact(code, data, reply, flags)
+            return true
         }
     }
 }
